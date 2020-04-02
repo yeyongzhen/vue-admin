@@ -36,7 +36,14 @@
         </el-form-item>
         <!-- 按钮 -->
         <el-form-item class="btns">
-          <el-button type="primary" @click.prevent="login">登录</el-button>
+          <el-button
+            type="primary"
+            :loading="loginBtnLoading"
+            @click.prevent="login"
+          >
+            <span v-if="!loginBtnLoading">登录</span>
+            <span v-else>登录中...</span> 
+          </el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
@@ -46,12 +53,13 @@
 
 <script>
 import { stripScript, validatePhone, validatePass } from "@/utils/validate";
+import { login } from "@/api/login";
 
 export default {
   name: "Login",
   data() {
     // 验证账号
-    var validateAccount = (rule, value, callback) => {
+    let validateAccount = (rule, value, callback) => {
       value = this.loginForm.account = stripScript(value); // 过滤特殊字符
       if (value === "") {
         callback(new Error("请输入账号"));
@@ -62,7 +70,7 @@ export default {
       }
     };
     // 验证密码
-    var validatePassword = (rule, value, callback) => {
+    let validatePassword = (rule, value, callback) => {
       value = this.loginForm.password = stripScript(value); // 过滤特殊字符
       if (value === "") {
         callback(new Error("请输入密码"));
@@ -76,10 +84,12 @@ export default {
     };
 
     return {
+      // 登录按钮 loading 状态
+      loginBtnLoading: false,
       // 表单的数据绑定对象
       loginForm: {
-        account: "",
-        password: ""
+        account: "17625809726",
+        password: "Vueadmin2020"
       },
       // 表单的验证规则对象
       loginFormRules: {
@@ -93,22 +103,35 @@ export default {
       this.$refs.loginForm.resetFields();
     },
     login() {
+      console.log("Vue App Name: " + process.env.VUE_APP_TITLE);
+      console.log("Mode: " + process.env.NODE_ENV);
+      console.log("Login Device: " + window.navigator.userAgent);
+
       this.$refs.loginForm.validate(async valid => {
-        if (!valid) return ;
-        const {
-          data,
-          status: statusCode
-        } = await this.$http.post("api/auth/login", this.loginForm);
+        if (valid) {
+          this.loginBtnLoading = true;
 
-        if (statusCode !== 200) return this.$message.error("登录失败");
-        this.$message.success("登录成功");
+          const result = await login(this.loginForm);
 
-        window.sessionStorage.setItem(
-          "token",
-          data.token.access_token
-        );
+          console.log("Login Response Data: ", result.data);
 
-        this.$router.push("/dashboard");
+          if (result.status !== 200) {
+            return this.$message.error("登录失败");
+          } else {
+            // 存储 token 到 sessionStorage
+            window.sessionStorage.setItem(
+              "token",
+              result.data.data.token.access_token
+            );
+            // 登录成功消息提示
+            this.$message.success("登录成功");
+            // 跳转到后台首页
+            this.$router.push("/dashboard");
+          }
+        } else {
+          console.log("Error Login submit");
+          return false;
+        }
       });
     }
   }

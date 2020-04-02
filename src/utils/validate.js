@@ -4,11 +4,11 @@
  * @param {string} s
  */
 export function stripScript(s) {
-  var pattern = new RegExp(
+  let pattern = new RegExp(
     "[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]"
   );
-  var rs = "";
-  for (var i = 0; i < s.length; i++) {
+  let rs = "";
+  for (let i = 0; i < s.length; i++) {
     rs = rs + s.substr(i, 1).replace(pattern, "");
   }
 

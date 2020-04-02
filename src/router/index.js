@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Login from "../views/login/Login.vue";
+import Login from "@/views/login/Login";
+import NotFound from "@/views/errors/NotFound"
 
 Vue.use(VueRouter);
 
@@ -12,6 +13,10 @@ const routes = [
   {
     path: "/login",
     component: Login
+  },
+  {
+    path: "/404",
+    component: NotFound
   }
 ];
 
