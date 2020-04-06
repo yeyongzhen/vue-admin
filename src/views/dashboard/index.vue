@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>404 Not Found</h1>
+    控制面板
   </div>
 </template>
 
 <script>
 export default {
-  name: "NotFound"
+  name: "Dashboard"
 };
 </script>
 

@@ -47,7 +47,7 @@ service.interceptors.response.use(
 
     if (response) {
       switch (response.status) {
-        case 401: 
+        case 401:
           window.sessionStorage.removeItem("token"); // 清除 token
           jumpTo("/login"); // 跳转到登录页
           break;
@@ -75,8 +75,8 @@ service.interceptors.response.use(
   }
 );
 
-const jumpTo = (path) => {
-  window.location.href = window.location.pathname + path
-}
+const jumpTo = path => {
+  window.location.href = window.location.pathname + path;
+};
 
 export default service;

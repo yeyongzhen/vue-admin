@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>404 Not Found</h1>
+    账号管理
   </div>
 </template>
 
 <script>
 export default {
-  name: "NotFound"
+  name: "AccountIndex"
 };
 </script>
 

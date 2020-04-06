@@ -42,7 +42,7 @@
             @click.prevent="login"
           >
             <span v-if="!loginBtnLoading">登录</span>
-            <span v-else>登录中...</span> 
+            <span v-else>登录中...</span>
           </el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>

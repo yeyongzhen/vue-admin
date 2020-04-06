@@ -8,5 +8,5 @@ export function login(data) {
     method: "post",
     url: "api/auth/login",
     data
-  })
+  });
 }
