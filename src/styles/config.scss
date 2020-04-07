@@ -1,0 +1,12 @@
+// 右侧菜单栏宽度
+$sidebarWidth: 250px;
+// 头部导航栏高度
+$headerHeight: 75px;
+
+@mixin webkit($style, $value) {
+-webkit-#{$style}: $value;
+  -moz-#{$style}: $value;
+  -o-#{$style}: $value;
+  -ms-#{$style}: $value;
+  #{$style}: $value;
+}

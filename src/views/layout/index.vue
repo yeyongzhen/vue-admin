@@ -1,5 +1,5 @@
 <template>
-  <div id="layout">
+  <div id="layout" :class="[menuCollapseStatus ? 'close' : 'open']">
     <LayoutHeader></LayoutHeader>
     <LayoutMain></LayoutMain>
     <LayoutSidebar></LayoutSidebar>
@@ -17,6 +17,11 @@ export default {
     LayoutHeader,
     LayoutMain,
     LayoutSidebar
+  },
+  computed: {
+    menuCollapseStatus() {
+      return this.$store.state.isCollapse;
+    }
   }
 };
 </script>

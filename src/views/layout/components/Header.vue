@@ -1,6 +1,6 @@
 <template>
   <div id="header-wrap">
-    <div class="pull-left header-icon">
+    <div class="pull-left header-icon" @click="collapseSidebar">
       <svg-icon iconClass="menu" className="menu" />
     </div>
     <div class="pull-right">
@@ -26,7 +26,12 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  methods: {
+    collapseSidebar() {
+      this.$store.commit("SET_COLLAPSE");
+    }
+  }
 };
 </script>
 
@@ -38,8 +43,24 @@ export default {
   left: 250px;
   height: 75px;
   background-color: #fff;
-  -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
   line-height: 75px;
+  -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
+  // @include webkit(transition, all .3s ease 0s);
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  -ms-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+.open {
+  #header-wrap {
+    left: 250px;
+  }
+}
+.close {
+  #header-wrap {
+    left: 64px;
+  }
 }
 .header-icon {
   padding: 0 32px;

@@ -32,9 +32,25 @@ export default {
   padding-top: 105px;
   padding-left: 280px;
   padding-right: 30px;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-color: #f7f7f7;
+  -webkit-box-sizing: border-box;
+  // @include webkit(transition, all .3s ease 0s);
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  -ms-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+.open {
+  .main-content {
+    padding-left: 280px;
+  }
+}
+.close {
+  .main-content {
+    padding-left: 94px;
+  }
 }
 .content {
   width: 100%;
