@@ -5,15 +5,16 @@
     </div>
     <div class="pull-right">
       <div class="user-info pull-left">
-        <img src="../../../assets/logo.png" alt="avatar" />
-        <el-dropdown>
+        <el-dropdown @command="handleCommand">
           <span class="el-dropdown-link">
-            管理员<i class="el-icon-arrow-down el-icon--right"></i>
+            {{ nickname }}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>基本资料</el-dropdown-item>
-            <el-dropdown-item>修改密码</el-dropdown-item>
-            <el-dropdown-item divided>退出登录</el-dropdown-item>
+            <el-dropdown-item command="">基本资料</el-dropdown-item>
+            <el-dropdown-item command="">修改密码</el-dropdown-item>
+            <el-dropdown-item command="logout" divided
+              >退出登录</el-dropdown-item
+            >
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -25,12 +26,31 @@
 </template>
 
 <script>
+// import {mapState} from 'vuex';
+
 export default {
   name: "Header",
+  computed: {
+    nickname: function() {
+      return this.$store.state.auth.userInfo.nickname;
+    }
+  },
   methods: {
     collapseSidebar() {
-      this.$store.commit("SET_COLLAPSE");
+      this.$store.dispatch("app/collapseSidebar");
+    },
+    handleCommand(command) {
+      console.log("Click on item => " + command);
+
+      if (command == "logout") {
+        this.$store.dispatch("auth/handleLogout").then(() => {
+          location.reload();
+        });
+      }
     }
+  },
+  created() {
+    console.log(this.$store.state.auth.userInfo);
   }
 };
 </script>

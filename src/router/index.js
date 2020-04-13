@@ -28,11 +28,12 @@ const routes = [
   {
     path: "/dashboard",
     name: "Dashboard",
-    component: Layout,
+    redirect: "index",
     meta: {
       name: "控制台",
       icon: "dashboard"
     },
+    component: Layout,
     children: [
       {
         path: "/index",

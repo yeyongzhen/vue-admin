@@ -53,7 +53,6 @@
 
 <script>
 import { stripScript, validatePhone, validatePass } from "@/utils/validate";
-import { login } from "@/api/login";
 
 export default {
   name: "Login",
@@ -103,31 +102,28 @@ export default {
       this.$refs.loginForm.resetFields();
     },
     login() {
-      console.log("Vue App Name: " + process.env.VUE_APP_TITLE);
-      console.log("Mode: " + process.env.NODE_ENV);
-      console.log("Login Device: " + window.navigator.userAgent);
-
-      this.$refs.loginForm.validate(async valid => {
+      this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loginBtnLoading = true;
 
-          const result = await login(this.loginForm);
+          this.$store
+            .dispatch("auth/handleLogin", this.loginForm)
+            .then(response => {
+              console.log("Login success => ", response);
 
-          console.log("Login Response Data: ", result.data);
+              this.$message({
+                message: "登录成功",
+                type: "success",
+                duration: 1000
+              });
 
-          if (result.status !== 200) {
-            return this.$message.error("登录失败");
-          } else {
-            // 存储 token 到 sessionStorage
-            window.sessionStorage.setItem(
-              "token",
-              result.data.data.token.access_token
-            );
-            // 登录成功消息提示
-            this.$message.success("登录成功");
-            // 跳转到后台首页
-            this.$router.push("/dashboard");
-          }
+              this.$router.push({
+                  name: "Dashboard"
+              });
+            })
+            .catch(error => {
+              console.log(error);
+            });
         } else {
           console.log("Error Login submit");
           return false;

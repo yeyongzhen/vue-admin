@@ -1,4 +1,5 @@
 import axios from "axios";
+import Auth from "@/utils/auth.js";
 import { Message } from "element-ui";
 
 const BASEURL = process.env.BASE_URL;
@@ -13,13 +14,11 @@ const service = axios.create({
   }
 });
 
-/**
- * 请求拦截器
- */
+// 请求拦截器
 service.interceptors.request.use(
   config => {
-    let token = window.sessionStorage.getItem("token");
-    config.headers.Authorization = `Bearer ${token}`; // 添加 Token
+    let token = Auth.getToken("token");
+    config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   error => {
@@ -27,9 +26,7 @@ service.interceptors.request.use(
   }
 );
 
-/**
- * 响应拦截器
- */
+// 响应拦截器
 service.interceptors.response.use(
   response => {
     let { data } = response;
@@ -58,7 +55,7 @@ service.interceptors.response.use(
         case 500:
           Message.error("服务器内部错误");
           setTimeout(() => {
-            window.location.reload();
+            location.reload();
           }, 1200);
           break;
       }

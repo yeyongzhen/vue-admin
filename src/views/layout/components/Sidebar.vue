@@ -10,7 +10,7 @@
       @open="handleOpen"
       @close="handleClose"
       :collapse="isCollapse"
-      background-color="transparent"
+      background-color="#344a5f"
       text-color="#fff"
       active-text-color="#ffd04b"
       router
@@ -52,7 +52,7 @@ export default {
     //   return this.$store.state.isCollapse;
     // }
     isCollapse() {
-      return this.$store.state.isCollapse;
+      return this.$store.state.app.isCollapse;
     }
   },
   created() {
@@ -104,7 +104,7 @@ export default {
 }
 .sidebar-logo {
   height: 75px;
-  // padding: 0 30px;
+  padding: 0 30px;
   display: flex;
   justify-content: center;
   align-items: center;
