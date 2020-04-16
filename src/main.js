@@ -7,9 +7,12 @@ import "./plugins/element.js";
 import "./assets/css/global.css";
 // 自定义全局组件
 import "./icons/index.js";
+// 自定义全局方法
 
 import "./router/permit";
+import GlobalFunctions from "@/utils/global.js";
 
+Vue.use(GlobalFunctions);
 Vue.config.productionTip = false;
 
 // runtime 模式（运行时）

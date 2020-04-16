@@ -2,7 +2,6 @@ import router from "./index.js";
 import whiteList from "./whiteList.js";
 import Auth from "@/utils/auth.js";
 
-
 // 路由前置守卫
 router.beforeEach((to, from, next) => {
   if (Auth.getToken()) {

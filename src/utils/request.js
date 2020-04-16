@@ -65,6 +65,7 @@ service.interceptors.response.use(
       // 断网处理
       if (!window.navigator.onLine) {
         // 断网时，跳转到对应页面
+        console.log("断网啦......");
       }
 
       return Promise.reject(error);

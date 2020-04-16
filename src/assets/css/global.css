@@ -18,8 +18,25 @@ body,
   font-size: 14px;
   padding-left: 50px !important;
 }
-
 .el-submenu .el-menu-item.is-active {
   /* background-color: rgba(245, 108, 108, 0.2) !important; */
   background-color: #328cf0 !important;
+}
+.el-pagination {
+  margin: 15px 15px 0 0;
+  padding:0;
+}
+
+/* 表格上方搜索区域样式 */
+.search-form {
+  padding: 20px 15px;
+  border-bottom: 1px solid #f2f2f2;
+  /* margin-bottom: 15px; */
+  /* -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1); */
+}
+.btns-container {
+  padding: 15px;
+}
+.items-list {
+  padding: 15px;
 }
