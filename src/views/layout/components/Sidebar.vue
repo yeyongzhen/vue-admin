@@ -103,7 +103,7 @@ export default {
   border-right: none;
 }
 .sidebar-logo {
-  height: 75px;
+  height: 64px;
   padding: 0 30px;
   display: flex;
   justify-content: center;

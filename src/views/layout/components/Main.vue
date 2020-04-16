@@ -29,7 +29,7 @@ export default {
 .main-content {
   width: 100%;
   height: 100%;
-  padding-top: 105px;
+  padding-top: 94px;
   padding-left: 280px;
   padding-right: 30px;
   box-sizing: border-box;
@@ -59,5 +59,6 @@ export default {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-color: #fff;
+  overflow-y:scroll;
 }
 </style>

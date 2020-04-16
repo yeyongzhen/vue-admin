@@ -61,9 +61,9 @@ export default {
   top: 0;
   right: 0;
   left: 250px;
-  height: 75px;
+  height: 64px;
   background-color: #fff;
-  line-height: 75px;
+  line-height: 64px;
   -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
   // @include webkit(transition, all .3s ease 0s);
   -webkit-transition: all 0.3s ease 0s;

@@ -7,7 +7,7 @@
           <el-input
             v-model="searchData.nickname"
             maxlength="10"
-            size="medium"
+            size="small"
             placeholder="姓名"
           ></el-input>
         </el-form-item>
@@ -15,28 +15,36 @@
           <el-input
             v-model="searchData.account"
             maxlength="11"
-            size="medium"
+            size="small"
             placeholder="账号"
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="getAccountList" size="medium"
+          <el-button type="primary" @click="getAccountList" size="small"
             >搜索</el-button
           >
         </el-form-item>
+        <el-form-item class="pull-right">
+          <el-button type="primary" size="small">新增账号</el-button>
+        </el-form-item>
       </el-form>
+
+      <div class="pull-right">
+      </div>
     </div>
 
-    <!-- 按钮区域 -->
+    <!-- 按钮区域 
     <div class="btns-container">
-      <el-button type="primary" size="medium">新增账号</el-button>
+      <el-button type="primary" size="small">新增账号</el-button>
     </div>
+    -->
 
     <!-- 列表区 -->
     <div class="items-list">
       <el-table
         :data="accountList"
         border
+        size="small"
         :cell-style="rowClass"
         :header-cell-style="headClass"
         style="width: 100%"
@@ -64,8 +72,8 @@
     <el-pagination
         class="pull-right"
         background
-        @size-change="handleSizeChange"
         @current-change="handlePageChange"
+        :current-page="currentPage"
         :page-size="pageSize"
         layout="total, prev, pager, next"
         :total="total"
@@ -136,9 +144,6 @@ export default {
     // 表格样式设置
     rowClass() {
       return "text-align: center;";
-    },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
     }
   },
   created() {

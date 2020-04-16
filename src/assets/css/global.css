@@ -29,8 +29,8 @@ body,
 
 /* 表格上方搜索区域样式 */
 .search-form {
-  padding: 20px 15px;
-  border-bottom: 1px solid #f2f2f2;
+  padding: 15px 15px;
+  /* border-bottom: 1px solid #f2f2f2; */
   /* margin-bottom: 15px; */
   /* -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1); */
 }
@@ -38,5 +38,5 @@ body,
   padding: 15px;
 }
 .items-list {
-  padding: 15px;
+  padding: 0 15px;
 }
