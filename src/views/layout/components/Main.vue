@@ -29,9 +29,9 @@ export default {
 .main-content {
   width: 100%;
   height: 100%;
-  padding-top: 94px;
-  padding-left: 280px;
-  padding-right: 30px;
+  padding-top: 80px;
+  padding-left: 240px;
+  padding-right: 20px;
   box-sizing: border-box;
   background-color: #f7f7f7;
   -webkit-box-sizing: border-box;
@@ -44,12 +44,12 @@ export default {
 }
 .open {
   .main-content {
-    padding-left: 280px;
+    padding-left: 240px;
   }
 }
 .close {
   .main-content {
-    padding-left: 94px;
+    padding-left: 84px;
   }
 }
 .content {
@@ -59,6 +59,6 @@ export default {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-color: #fff;
-  overflow-y:scroll;
+  // overflow-y:scroll;
 }
 </style>

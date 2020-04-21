@@ -60,10 +60,11 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-  left: 250px;
-  height: 64px;
+  left: 220px;
+  height: 60px;
   background-color: #fff;
-  line-height: 64px;
+  line-height: 60px;
+  z-index: 1001;
   -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
   // @include webkit(transition, all .3s ease 0s);
   -webkit-transition: all 0.3s ease 0s;
@@ -74,7 +75,7 @@ export default {
 }
 .open {
   #header-wrap {
-    left: 250px;
+    left: 220px;
   }
 }
 .close {
@@ -111,7 +112,4 @@ export default {
 .el-dropdown-link {
   cursor: pointer;
 }
-// .el-icon-arrow-down {
-//   font-size: 12px;
-// }
 </style>

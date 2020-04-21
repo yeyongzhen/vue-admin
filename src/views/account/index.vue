@@ -72,10 +72,13 @@
     <el-pagination
         class="pull-right"
         background
-        @current-change="handlePageChange"
+        small
+        @size-change="pageSizeChange"
+        @current-change="pageChange"
         :current-page="currentPage"
+        :page-sizes="[10, 20, 30, 40, 50]"
         :page-size="pageSize"
-        layout="total, prev, pager, next"
+        layout="total, sizes, prev, pager, next"
         :total="total"
       >
       </el-pagination>
@@ -95,8 +98,8 @@ export default {
       },
       accountList: [],
       total: 0,
-      currentPage: 1,
-      pageSize: 0
+      pageSize: 10,
+      currentPage: 1
     };
   },
   methods: {
@@ -111,7 +114,8 @@ export default {
     },
     handleSearchData() {
       let requestData = {
-        page: this.currentPage
+        page: this.currentPage,
+        per_page: this.pageSize
       }
       if (this.searchData.account) {
         requestData.account = this.searchData.account;
@@ -122,9 +126,14 @@ export default {
 
       return requestData;
     },
-    handlePageChange(val) {
+    pageChange(val) {
       console.log(`当前页: ${val}`);
       this.currentPage = val;
+      this.getAccountList();
+    },
+    pageSizeChange(val) {
+      console.log(`每页显示: ${val} 条`);
+      this.pageSize = val;
       this.getAccountList();
     },
     showDetail(row) {

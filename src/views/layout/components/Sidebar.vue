@@ -74,7 +74,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 250px;
+  width: 220px;
   height: 100vh;
   background-color: #344a5f;
   // 过渡效果
@@ -91,7 +91,7 @@ export default {
 }
 .open {
   #sidebar-wrap {
-    width: 250px;
+    width: 220px;
   }
 }
 .close {
@@ -103,15 +103,15 @@ export default {
   border-right: none;
 }
 .sidebar-logo {
-  height: 64px;
+  height: 60px;
   padding: 0 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
   img {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     margin-right: 10px;
   }
   span {
