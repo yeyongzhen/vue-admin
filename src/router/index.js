@@ -2,8 +2,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "@/views/login/Login";
 import NotFound from "@/views/errors/NotFound";
-import Layout from "@/views/layout/index";
-import AccountIndex from "@/views/account/index";
+import Layout from "@/views/layout";
+import AccountIndex from "@/views/account";
+import PermissionIndex from "@/views/permission";
+import RoleIndex from "@/views/role";
 
 Vue.use(VueRouter);
 
@@ -61,6 +63,33 @@ const routes = [
           name: "账号列表"
         },
         component: AccountIndex
+      }
+    ]
+  },
+  {
+    path: "/access",
+    name: "Access",
+    meta: {
+      name: "权限管理",
+      icon: "access"
+    },
+    component: Layout,
+    children: [
+      {
+        path: "/permissionIndex",
+        name: "PermissionIndex",
+        meta: {
+          name: "权限列表"
+        },
+        component: PermissionIndex
+      },
+      {
+        path: "/roleIndex",
+        name: "RoleIndex",
+        meta: {
+          name: "角色列表"
+        },
+        component: RoleIndex
       }
     ]
   },

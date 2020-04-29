@@ -1,6 +1,6 @@
 <template>
-  <div id="account">
-    <!-- 搜索区域 -->
+  <div id="role">
+    <!-- 搜索区域 
     <div class="search-form">
       <el-form :inline="true" :model="searchData" class="demo-form-inline">
         <el-form-item label="姓名:">
@@ -28,29 +28,25 @@
 
       <div class="pull-right"></div>
     </div>
+    -->
 
     <!-- 按钮区域 -->
     <div class="btns-container">
-      <el-button type="primary" size="small">新增账号</el-button>
+      <el-button type="primary" size="small" @click="visible = true"
+        >新增角色</el-button
+      >
     </div>
 
     <!-- 列表区 -->
     <div class="items-list">
       <TableVue :tableConfig="tableConfig" :tableData="tableData">
-        <template v-slot:status="slotData">
-          <el-switch
-            v-model="slotData.data.status"
-            active-color="#13ce66"
-          ></el-switch>
-        </template>
         <template v-slot:action="slotData">
-          <el-button
-            @click="showDetail(slotData.data.id)"
-            type="text"
-            size="small"
-            >查看</el-button
+          <el-button type="text" size="small" @click="edit(slotData.data.id)"
+            >编辑</el-button
           >
-          <el-button type="text" size="small" @click="edit">编辑</el-button>
+          <el-button type="text" size="small" @click="del(slotData.data.id)"
+            >删除</el-button
+          >
         </template>
       </TableVue>
     </div>
@@ -69,17 +65,30 @@
       :total="total"
     >
     </el-pagination>
+
+    <!-- 新增弹窗 -->
+    <DialogAdd :dialogVisible.sync="visible" @on-reload-table="getTableData" />
+    <!-- 编辑弹窗 -->
+    <DialogEdit
+      :dialogVisible.sync="dialogEditVisible"
+      :id="roleId"
+      @on-reload-table="getTableData"
+    />
   </div>
 </template>
 
 <script>
-import { getAccountList } from "@/api/user.js";
+import { getRoleList, delRole } from "@/api/role.js";
 import TableVue from "@c/Table";
+import DialogAdd from "@/views/role/components/add";
+import DialogEdit from "@/views/role/components/edit";
 
 export default {
-  name: "AccountIndex",
+  name: "RoleIndex",
   components: {
-    TableVue
+    TableVue,
+    DialogAdd,
+    DialogEdit
   },
   data() {
     return {
@@ -92,33 +101,19 @@ export default {
       pageSize: 10,
       currentPage: 1,
       tableConfig: {
-        selection: true,
+        selection: false,
         thead: [
           {
-            label: "账号",
-            field: "account"
+            label: "角色",
+            field: "name"
           },
           {
-            label: "姓名",
-            field: "nickname"
-          },
-          {
-            label: "登录IP",
-            field: "login_ip"
-          },
-          {
-            label: "最后登录时间",
-            field: "last_login_time"
+            label: "显示名称",
+            field: "display_name"
           },
           {
             label: "创建时间",
             field: "created_at"
-          },
-          {
-            label: "启用状态",
-            field: "status",
-            columnType: "slot",
-            slotName: "status"
           },
           {
             label: "操作",
@@ -126,14 +121,17 @@ export default {
             slotName: "action"
           }
         ]
-      }
+      },
+      visible: false,
+      dialogEditVisible: false,
+      roleId: 0
     };
   },
   methods: {
     getTableData() {
       let requestData = this.handleSearchData();
 
-      getAccountList(requestData).then(res => {
+      getRoleList(requestData).then(res => {
         this.tableData = res.data.data.data_list;
         this.total = res.data.data.total;
         this.pageSize = res.data.data.page_size;
@@ -163,15 +161,31 @@ export default {
       this.pageSize = val;
       this.getTableData();
     },
-    showDetail(row) {
-      console.log(row);
+    edit(roleId) {
+      console.log(roleId);
+      this.dialogEditVisible = true;
+      this.roleId = roleId;
     },
-    edit() {
-      this.confirm({
-        content: "确认删除？",
-        tip: "警告",
-        type: "warning"
-      });
+    del(id) {
+      this.$confirm("确认删除该角色, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        center: true
+      })
+        .then(() => {
+          let requestData = { id: id };
+          delRole(requestData).then(res => {
+            this.$message.success(res.data.message);
+            this.getTableData();
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     }
   },
   created() {

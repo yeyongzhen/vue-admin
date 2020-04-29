@@ -26,10 +26,14 @@ body,
   margin: 30px 15px 30px 0;
   padding:0;
 }
+/* dialog 样式 */
+.el-dialog__body {
+  padding: 30px 47px !important;
+}
 
 /* 表格上方搜索区域样式 */
 .search-form {
-  padding: 15px 15px;
+  padding: 15px 15px 0;
   /* border-bottom: 1px solid #f2f2f2; */
   /* margin-bottom: 15px; */
   /* -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1); */

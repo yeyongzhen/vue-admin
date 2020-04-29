@@ -50,13 +50,13 @@ service.interceptors.response.use(
           break;
         case 404:
           Message.error("请求失败，请求的资源不存在");
-          jumpTo("/404");
+          // jumpTo("/404");
           break;
         case 500:
           Message.error("服务器内部错误");
-          setTimeout(() => {
-            location.reload();
-          }, 1200);
+          // setTimeout(() => {
+          //   location.reload();
+          // }, 1200);
           break;
       }
 
@@ -74,7 +74,7 @@ service.interceptors.response.use(
 );
 
 const jumpTo = path => {
-  window.location.href = window.location.pathname + path;
+  window.location.href = window.location.origin + path;
 };
 
 export default service;
