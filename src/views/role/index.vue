@@ -44,6 +44,9 @@
           <el-button type="text" size="small" @click="edit(slotData.data.id)"
             >编辑</el-button
           >
+          <el-button type="text" size="small" @click="assignPermissions(slotData.data.id)"
+            >分配权限</el-button
+          >
           <el-button type="text" size="small" @click="del(slotData.data.id)"
             >删除</el-button
           >
@@ -104,6 +107,11 @@ export default {
         selection: false,
         thead: [
           {
+            label: "ID",
+            field: "id",
+            width: "60px"
+          },
+          {
             label: "角色",
             field: "name"
           },
@@ -113,7 +121,13 @@ export default {
           },
           {
             label: "创建时间",
-            field: "created_at"
+            field: "created_at",
+            width: "180px"
+          },
+          {
+            label: "更新时间",
+            field: "updated_at",
+            width: "180px"
           },
           {
             label: "操作",
@@ -165,6 +179,9 @@ export default {
       console.log(roleId);
       this.dialogEditVisible = true;
       this.roleId = roleId;
+    },
+    assignPermissions(roleId) {
+      console.log(roleId);
     },
     del(id) {
       this.$confirm("确认删除该角色, 是否继续?", "提示", {

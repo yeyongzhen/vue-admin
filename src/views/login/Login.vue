@@ -87,8 +87,8 @@ export default {
       loginBtnLoading: false,
       // 表单的数据绑定对象
       loginForm: {
-        account: "17625809726",
-        password: "Vueadmin2020"
+        account: "17625809733",
+        password: "vueAdmin2020"
       },
       // 表单的验证规则对象
       loginFormRules: {

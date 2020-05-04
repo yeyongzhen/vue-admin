@@ -31,7 +31,7 @@
 
     <!-- 按钮区域 -->
     <div class="btns-container">
-      <el-button type="primary" size="small">新增账号</el-button>
+      <el-button type="primary" size="small" @click="visible = true">新增账号</el-button>
     </div>
 
     <!-- 列表区 -->
@@ -69,17 +69,22 @@
       :total="total"
     >
     </el-pagination>
+
+    <!-- 新增弹窗 -->
+    <DialogAdd :dialogVisible.sync="visible" @on-reload-table="getTableData" />
   </div>
 </template>
 
 <script>
 import { getAccountList } from "@/api/user.js";
 import TableVue from "@c/Table";
+import DialogAdd from "@/views/account/components/add";
 
 export default {
   name: "AccountIndex",
   components: {
-    TableVue
+    TableVue,
+    DialogAdd
   },
   data() {
     return {
@@ -92,11 +97,17 @@ export default {
       pageSize: 10,
       currentPage: 1,
       tableConfig: {
-        selection: true,
+        selection: false,
         thead: [
           {
+            label: "ID",
+            field: "id",
+            width: "60px"
+          },
+          {
             label: "账号",
-            field: "account"
+            field: "account",
+            width: "120px"
           },
           {
             label: "姓名",
@@ -108,17 +119,18 @@ export default {
           },
           {
             label: "最后登录时间",
-            field: "last_login_time"
+            field: "last_login_time",
+            width: "150px"
           },
           {
             label: "创建时间",
-            field: "created_at"
+            field: "created_at",
+            width: "150px"
           },
           {
-            label: "启用状态",
-            field: "status",
-            columnType: "slot",
-            slotName: "status"
+            label: "更新时间",
+            field: "updated_at",
+            width: "150px"
           },
           {
             label: "操作",
@@ -126,7 +138,8 @@ export default {
             slotName: "action"
           }
         ]
-      }
+      },
+      visible: false
     };
   },
   methods: {

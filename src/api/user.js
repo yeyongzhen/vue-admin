@@ -9,3 +9,13 @@ export function getAccountList(data) {
     data
   });
 }
+
+
+// 添加账号
+export function addAccount(data) {
+  return service.request({
+    method: "post",
+    url: "api/account/addAccount",
+    data
+  });
+}

@@ -105,7 +105,8 @@ export default {
         thead: [
           {
             label: "ID",
-            field: "id"
+            field: "id",
+            width: "60px"
           },
           {
             label: "权限",
