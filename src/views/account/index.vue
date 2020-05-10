@@ -20,7 +20,7 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="getTableData" size="small"
+          <el-button type="primary" size="small" @click="getTableData"
             >搜索</el-button
           >
         </el-form-item>
@@ -31,26 +31,30 @@
 
     <!-- 按钮区域 -->
     <div class="btns-container">
-      <el-button type="primary" size="small" @click="visible = true">新增账号</el-button>
+      <el-button type="primary" size="small" @click="visible = true"
+        >新增账号</el-button
+      >
     </div>
 
     <!-- 列表区 -->
     <div class="items-list">
-      <TableVue :tableConfig="tableConfig" :tableData="tableData">
-        <template v-slot:status="slotData">
+      <TableVue :table-config="tableConfig" :table-data="tableData">
+        <template v-slot:enable="slotData">
           <el-switch
-            v-model="slotData.data.status"
+            v-model="slotData.data.enable"
             active-color="#13ce66"
+            inactive-color="#ff4949"
+            @change="handleSwitchValue(slotData.data.id, slotData.data.enable)"
           ></el-switch>
         </template>
         <template v-slot:action="slotData">
           <el-button
-            @click="showDetail(slotData.data.id)"
             type="text"
             size="small"
-            >查看</el-button
+            @click="showDetail(slotData.data.id)"
+            >查看/编辑</el-button
           >
-          <el-button type="text" size="small" @click="edit">编辑</el-button>
+          <el-button type="text" size="small" @click="edit">删除</el-button>
         </template>
       </TableVue>
     </div>
@@ -60,23 +64,23 @@
       class="pull-right"
       background
       small
-      @size-change="pageSizeChange"
-      @current-change="pageChange"
       :current-page="currentPage"
       :page-sizes="[10, 20, 30, 40, 50]"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next"
       :total="total"
+      @size-change="pageSizeChange"
+      @current-change="pageChange"
     >
     </el-pagination>
 
     <!-- 新增弹窗 -->
-    <DialogAdd :dialogVisible.sync="visible" @on-reload-table="getTableData" />
+    <DialogAdd :dialog-visible.sync="visible" @on-reload-table="getTableData" />
   </div>
 </template>
 
 <script>
-import { getAccountList } from "@/api/user.js";
+import { getAccountList, changeAccountStatus } from "@/api/user.js";
 import TableVue from "@c/Table";
 import DialogAdd from "@/views/account/components/add";
 
@@ -90,7 +94,8 @@ export default {
     return {
       searchData: {
         account: "",
-        nickname: ""
+        nickname: "",
+        enable: ""
       },
       tableData: [],
       total: 0,
@@ -102,7 +107,8 @@ export default {
           {
             label: "ID",
             field: "id",
-            width: "60px"
+            width: "64px",
+            sortable: true
           },
           {
             label: "账号",
@@ -114,13 +120,14 @@ export default {
             field: "nickname"
           },
           {
-            label: "登录IP",
-            field: "login_ip"
+            label: "角色",
+            field: "roles",
           },
           {
-            label: "最后登录时间",
-            field: "last_login_time",
-            width: "150px"
+            label: "状态",
+            field: "enable",
+            columnType: "slot",
+            slotName: "enable"
           },
           {
             label: "创建时间",
@@ -128,9 +135,14 @@ export default {
             width: "150px"
           },
           {
-            label: "更新时间",
-            field: "updated_at",
+            label: "最近登录时间",
+            field: "last_login_time",
             width: "150px"
+          },
+          {
+            label: "登录IP",
+            field: "login_ip",
+            width: "100px"
           },
           {
             label: "操作",
@@ -139,14 +151,19 @@ export default {
           }
         ]
       },
-      visible: false
+      visible: false,
+      switchClickStatus: false
     };
+  },
+  created() {
+    this.getTableData();
   },
   methods: {
     getTableData() {
       let requestData = this.handleSearchData();
 
       getAccountList(requestData).then(res => {
+        console.log("accountList ", res.data.data.data_list);
         this.tableData = res.data.data.data_list;
         this.total = res.data.data.total;
         this.pageSize = res.data.data.page_size;
@@ -185,10 +202,42 @@ export default {
         tip: "警告",
         type: "warning"
       });
+    },
+    getRoleName(data) {
+      if (data.length === 0) {
+        return "";
+      }
+
+      let roles = "";
+      for (let item of data) {
+        roles += item.display_name + "、";
+      }
+      return roles.slice(0, -1);
+    },
+    handleSwitchValue(id, enable) {
+      if (this.switchClickStatus) {
+        return false;
+      }
+      this.switchClickStatus = true;
+
+      if (enable === true) {
+        enable = 1;
+      } else if (enable === false) {
+        enable = 2
+      } else {
+        return false;
+      }
+
+      changeAccountStatus({
+        id: id,
+        enable: enable
+      }).then(res => {
+        this.$message.success(res.data.message);
+        this.switchClickStatus = !this.switchClickStatus;
+      }).catch(error => {
+        this.switchClickStatus = !this.switchClickStatus;
+      });
     }
-  },
-  created() {
-    this.getTableData();
   }
 };
 </script>

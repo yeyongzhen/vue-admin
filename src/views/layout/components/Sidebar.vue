@@ -7,19 +7,22 @@
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       :collapse="isCollapse"
       background-color="#344a5f"
       text-color="#fff"
       active-text-color="#ffd04b"
       router
+      @open="handleOpen"
+      @close="handleClose"
     >
       <template v-for="(item, index) in routers">
         <el-submenu v-if="!item.hidden" :key="item.id" :index="index + ''">
           <!-- 一级菜单的模板区 -->
           <template slot="title">
-            <svg-icon :iconClass="item.meta.icon" :className="item.meta.icon" />
+            <svg-icon
+              :icon-class="item.meta.icon"
+              :class-name="item.meta.icon"
+            />
             <span>{{ item.meta.name }}</span>
           </template>
 

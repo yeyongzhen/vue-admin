@@ -39,12 +39,15 @@
 
     <!-- 列表区 -->
     <div class="items-list">
-      <TableVue :tableConfig="tableConfig" :tableData="tableData">
+      <TableVue :table-config="tableConfig" :table-data="tableData">
         <template v-slot:action="slotData">
           <el-button type="text" size="small" @click="edit(slotData.data.id)"
             >编辑</el-button
           >
-          <el-button type="text" size="small" @click="assignPermissions(slotData.data.id)"
+          <el-button
+            type="text"
+            size="small"
+            @click="assignPermissions(slotData.data.id)"
             >分配权限</el-button
           >
           <el-button type="text" size="small" @click="del(slotData.data.id)"
@@ -59,24 +62,26 @@
       class="pull-right"
       background
       small
-      @size-change="pageSizeChange"
-      @current-change="pageChange"
       :current-page="currentPage"
       :page-sizes="[10, 20, 30, 40, 50]"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next"
       :total="total"
+      @size-change="pageSizeChange"
+      @current-change="pageChange"
     >
     </el-pagination>
 
     <!-- 新增弹窗 -->
-    <DialogAdd :dialogVisible.sync="visible" @on-reload-table="getTableData" />
+    <DialogAdd :dialog-visible.sync="visible" @on-reload-table="getTableData" />
     <!-- 编辑弹窗 -->
     <DialogEdit
-      :dialogVisible.sync="dialogEditVisible"
       :id="roleId"
+      :dialog-visible.sync="dialogEditVisible"
       @on-reload-table="getTableData"
     />
+    <!-- 分配权限 -->
+    <DialogAssign :id="roleId" :dialog-visible.sync="dialogAssignVisible" />
   </div>
 </template>
 
@@ -85,13 +90,15 @@ import { getRoleList, delRole } from "@/api/role.js";
 import TableVue from "@c/Table";
 import DialogAdd from "@/views/role/components/add";
 import DialogEdit from "@/views/role/components/edit";
+import DialogAssign from "@/views/role/components/assign";
 
 export default {
   name: "RoleIndex",
   components: {
     TableVue,
     DialogAdd,
-    DialogEdit
+    DialogEdit,
+    DialogAssign
   },
   data() {
     return {
@@ -138,8 +145,12 @@ export default {
       },
       visible: false,
       dialogEditVisible: false,
+      dialogAssignVisible: false,
       roleId: 0
     };
+  },
+  created() {
+    this.getTableData();
   },
   methods: {
     getTableData() {
@@ -182,6 +193,8 @@ export default {
     },
     assignPermissions(roleId) {
       console.log(roleId);
+      this.dialogAssignVisible = true;
+      this.roleId = roleId;
     },
     del(id) {
       this.$confirm("确认删除该角色, 是否继续?", "提示", {
@@ -204,9 +217,6 @@ export default {
           });
         });
     }
-  },
-  created() {
-    this.getTableData();
   }
 };
 </script>

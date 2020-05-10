@@ -12,7 +12,7 @@ import LayoutMain from "./components/Main";
 import LayoutSidebar from "./components/Sidebar";
 
 export default {
-  name: "layout",
+  name: "Layout",
   components: {
     LayoutHeader,
     LayoutMain,

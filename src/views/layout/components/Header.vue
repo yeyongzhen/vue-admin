@@ -1,7 +1,7 @@
 <template>
   <div id="header-wrap">
     <div class="pull-left header-icon" @click="collapseSidebar">
-      <svg-icon iconClass="menu" className="menu" />
+      <svg-icon icon-class="menu" class-name="menu" />
     </div>
     <div class="pull-right">
       <div class="user-info pull-left">
@@ -19,7 +19,7 @@
         </el-dropdown>
       </div>
       <div class="header-icon pull-left">
-        <svg-icon iconClass="more" className="more" />
+        <svg-icon icon-class="more" class-name="more" />
       </div>
     </div>
   </div>
@@ -35,6 +35,9 @@ export default {
       return this.$store.state.auth.userInfo.nickname;
     }
   },
+  created() {
+    console.log(this.$store.state.auth.userInfo);
+  },
   methods: {
     collapseSidebar() {
       this.$store.dispatch("app/collapseSidebar");
@@ -48,9 +51,6 @@ export default {
         });
       }
     }
-  },
-  created() {
-    console.log(this.$store.state.auth.userInfo);
   }
 };
 </script>

@@ -27,6 +27,9 @@ export default {
       initOptionData: []
     };
   },
+  mounted() {
+    this.initOptions();
+  },
   methods: {
     initOptions() {
       if (this.optionData.length === 0) {
@@ -49,9 +52,6 @@ export default {
       this.initOptionData = options;
       this.selectValue = options[0].value;
     }
-  },
-  mounted() {
-    this.initOptions();
   }
 };
 </script>

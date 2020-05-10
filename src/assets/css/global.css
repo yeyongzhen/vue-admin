@@ -9,9 +9,12 @@ body,
   font-size: 14px;
 }
 
-.pull-left { float: left; }
-.pull-right { float: right; }
-
+.pull-left { 
+  float: left; 
+}
+.pull-right { 
+  float: right; 
+}
 
 /* 修改 elementui 样式 */
 .el-submenu .el-menu-item {
@@ -19,24 +22,26 @@ body,
   padding-left: 50px !important;
 }
 .el-submenu .el-menu-item.is-active {
-  /* background-color: rgba(245, 108, 108, 0.2) !important; */
-  background-color: #328cf0 !important;
+  background-color: rgba(42, 59, 76) !important;
 }
 .el-pagination {
   margin: 30px 15px 30px 0;
   padding:0;
 }
 /* dialog 样式 */
+.el-dialog__header {
+  border-bottom: 1px solid #e8eaec;
+}
 .el-dialog__body {
   padding: 30px 47px !important;
+}
+.el-dialog__footer {
+  border-top: 1px solid #e8eaec;
 }
 
 /* 表格上方搜索区域样式 */
 .search-form {
   padding: 15px 15px 0;
-  /* border-bottom: 1px solid #f2f2f2; */
-  /* margin-bottom: 15px; */
-  /* -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1); */
 }
 .btns-container {
   padding: 15px;

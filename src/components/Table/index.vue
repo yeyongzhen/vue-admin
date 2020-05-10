@@ -13,11 +13,11 @@
     <template v-for="item in config.thead">
       <!-- v-slot 插槽 -->
       <el-table-column
+        v-if="item.columnType === 'slot'"
         :key="item.field"
         :prop="item.field"
         :label="item.label"
         :width="item.width"
-        v-if="item.columnType === 'slot'"
       >
         <template slot-scope="scope">
           <slot :name="item.slotName" :data="scope.row"></slot>
@@ -26,11 +26,12 @@
 
       <!-- 普通文本 -->
       <el-table-column
+        v-else
         :key="item.field"
         :prop="item.field"
         :label="item.label"
         :width="item.width"
-        v-else
+        :sortable="item.sortable"
       ></el-table-column>
     </template>
   </el-table>
@@ -57,6 +58,9 @@ export default {
       }
     };
   },
+  beforeMount() {
+    this.initTableConfig();
+  },
   methods: {
     // 表头样式设置
     headClass() {
@@ -78,9 +82,6 @@ export default {
         }
       }
     }
-  },
-  beforeMount() {
-    this.initTableConfig();
   }
 };
 </script>

@@ -44,3 +44,12 @@ export function updatePermission(data) {
     data
   });
 }
+
+// 获取所有权限
+export function getAllPermissions(data) {
+  return service.request({
+    method: "post",
+    url: "api/permission/getAllPermissions",
+    data
+  });
+}

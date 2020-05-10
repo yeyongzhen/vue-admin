@@ -39,7 +39,7 @@
 
     <!-- 列表区 -->
     <div class="items-list">
-      <TableVue :tableConfig="tableConfig" :tableData="tableData">
+      <TableVue :table-config="tableConfig" :table-data="tableData">
         <template v-slot:action="slotData">
           <el-button type="text" size="small" @click="edit(slotData.data.id)"
             >编辑</el-button
@@ -56,22 +56,22 @@
       class="pull-right"
       background
       small
-      @size-change="pageSizeChange"
-      @current-change="pageChange"
       :current-page="currentPage"
       :page-sizes="[10, 20, 30, 40, 50]"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next"
       :total="total"
+      @size-change="pageSizeChange"
+      @current-change="pageChange"
     >
     </el-pagination>
 
     <!-- 新增弹窗 -->
-    <DialogAdd :dialogVisible.sync="visible" @on-reload-table="getTableData" />
+    <DialogAdd :dialog-visible.sync="visible" @on-reload-table="getTableData" />
     <!-- 编辑弹窗 -->
     <DialogEdit
-      :dialogVisible.sync="dialogEditVisible"
       :id="permissionId"
+      :dialog-visible.sync="dialogEditVisible"
       @on-reload-table="getTableData"
     />
   </div>
@@ -131,6 +131,9 @@ export default {
       dialogEditVisible: false,
       permissionId: 0
     };
+  },
+  created() {
+    this.getTableData();
   },
   methods: {
     getTableData() {
@@ -193,9 +196,6 @@ export default {
           });
         });
     }
-  },
-  created() {
-    this.getTableData();
   }
 };
 </script>

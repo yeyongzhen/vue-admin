@@ -6,8 +6,17 @@
 
 <script>
 export default {
-  name: "svgIcon",
-  props: ["iconClass", "className"],
+  name: "SvgIcon",
+  props: {
+    iconClass: {
+      type: String,
+      default: ""
+    },
+    className: {
+      type: String,
+      default: ""
+    }
+  },
   computed: {
     iconName() {
       return `#icon-${this.iconClass}`;

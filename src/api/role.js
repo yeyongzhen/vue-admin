@@ -44,3 +44,12 @@ export function updateRole(data) {
     data
   });
 }
+
+// 绑定权限
+export function assignPermissions(data) {
+  return service.request({
+    method: "post",
+    url: "api/role/assignPermissions",
+    data
+  });
+}

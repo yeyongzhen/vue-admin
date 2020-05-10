@@ -6,7 +6,7 @@
     :visible.sync="showDialog"
     @close="close"
   >
-    <el-form :model="form" :rules="rules" ref="addForm">
+    <el-form ref="addForm" :model="form" :rules="rules">
       <el-form-item label="权限" :label-width="formLabelWidth" prop="name">
         <el-input v-model="form.name" autocomplete="off"></el-input>
       </el-form-item>
@@ -19,12 +19,12 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="close" size="small">取 消</el-button>
+      <el-button size="small" @click="close">取 消</el-button>
       <el-button
         type="primary"
         :loading="submitLoading"
-        @click="handleAddPermission"
         size="small"
+        @click="handleAddPermission"
         >确 定</el-button
       >
     </div>
