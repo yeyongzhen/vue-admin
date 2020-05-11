@@ -51,10 +51,10 @@
           <el-button
             type="text"
             size="small"
-            @click="showDetail(slotData.data.id)"
+            @click="editOrDetail(slotData.data.id)"
             >查看/编辑</el-button
           >
-          <el-button type="text" size="small" @click="edit">删除</el-button>
+          <!-- <el-button type="text" size="small" @click="edit">删除</el-button> -->
         </template>
       </TableVue>
     </div>
@@ -76,6 +76,8 @@
 
     <!-- 新增弹窗 -->
     <DialogAdd :dialog-visible.sync="visible" @on-reload-table="getTableData" />
+    <!-- 编辑弹窗 -->
+    <DialogEdit :dialog-visible.sync="dialogEditVisible" :id="accountId" @on-reload-table="getTableData" />
   </div>
 </template>
 
@@ -83,12 +85,14 @@
 import { getAccountList, changeAccountStatus } from "@/api/user.js";
 import TableVue from "@c/Table";
 import DialogAdd from "@/views/account/components/add";
+import DialogEdit from "@/views/account/components/edit";
 
 export default {
   name: "AccountIndex",
   components: {
     TableVue,
-    DialogAdd
+    DialogAdd,
+    DialogEdit
   },
   data() {
     return {
@@ -123,12 +127,12 @@ export default {
             label: "角色",
             field: "roles",
           },
-          {
-            label: "状态",
-            field: "enable",
-            columnType: "slot",
-            slotName: "enable"
-          },
+          // {
+          //   label: "状态",
+          //   field: "enable",
+          //   columnType: "slot",
+          //   slotName: "enable"
+          // },
           {
             label: "创建时间",
             field: "created_at",
@@ -152,6 +156,8 @@ export default {
         ]
       },
       visible: false,
+      dialogEditVisible: false,
+      accountId: 0,
       switchClickStatus: false
     };
   },
@@ -196,12 +202,11 @@ export default {
     showDetail(row) {
       console.log(row);
     },
-    edit() {
-      this.confirm({
-        content: "确认删除？",
-        tip: "警告",
-        type: "warning"
-      });
+    // 查看、编辑
+    editOrDetail(accountId) {
+      console.log(accountId);
+      this.dialogEditVisible = true;
+      this.accountId = accountId;
     },
     getRoleName(data) {
       if (data.length === 0) {

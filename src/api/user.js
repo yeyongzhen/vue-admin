@@ -36,3 +36,21 @@ export function changeAccountStatus(data = {}) {
     data
   });
 }
+
+// 根据 ID 查询某个账号信息
+export function getAccountById(data = {}) {
+  return service.request({
+    method: "post",
+    url: "api/account/getAccountById",
+    data
+  });
+}
+
+// 更新账号信息
+export function updateAccount(data = {}) {
+  return service.request({
+    method: "post",
+    url: "api/account/updateAccount",
+    data
+  });
+}
